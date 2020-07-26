@@ -58,7 +58,7 @@ const WShingling = require('./lib/w_shingling');
 
 program
   .requiredOption('-p, --path <path>', 'Path to files')
-  .option('-i, --index <index>', 'Similarity index (0..1), 0.5 by default')
+  .option('-i, --index <index>', 'Similarity index [0..1], 0.5 by default')
   .option('-c, --copies <copies>', 'Min number of duplicates to mark as a not uniqe, 3 by default')
   .option('-l, --length <length>', 'Length of one shingle in words, 4 by default, min 3')
   .action(async (options) => {
