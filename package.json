@@ -1,0 +1,25 @@
+{
+  "name": "tutanota-test",
+  "version": "0.0.1",
+  "description": "Compare similarity in texts with W-shingling algorithm",
+  "dependencies": {
+    "commander": "^6.0.0",
+    "xxhash": "^0.3.0"
+  },
+  "devDependencies": {
+    "mocha": "",
+    "should": ""
+  },
+  "scripts": {
+    "one": "node index.js -p ./testFiles/ -c 2 -i 0.5 -l 3",
+    "two": "node index.js -p ./testFiles/ -c 1 -i 1 -l 3",
+    "three": "node index.js -p ./testFiles/ -c 2 -i 0 -l 3",
+    "four": "node index.js -p ./testFiles/ -c 2 -i 0.9 -l 3",
+    "test": "mocha -R spec"
+  },
+  "keywords": [
+    "w-shingling",
+    "shingles",
+    "N-gram"
+  ]
+}
