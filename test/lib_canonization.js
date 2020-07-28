@@ -76,5 +76,19 @@ describe('Text canonization', () => {
     const result2 = wShingling._textCanonization('  My nAmE  is BOB%, $  I hA#vE a red CAR  !!!!');
     assert.equal(result1, result2);
   });
+
+  it('_textCanonization, case #3, only short/not important words', function () {
+    const result1 = wShingling._textCanonization('  ho ho !!!');
+    const result2 = wShingling._textCanonization('  me me $$$');
+
+    assert.notEqual(result1, result2);
+  });
+
+  it('_textCanonization, case #4, only spec symbols', function () {
+    const result1 = wShingling._textCanonization('!!!');
+    const result2 = wShingling._textCanonization('$$$');
+
+    assert.notEqual(result1, result2);
+  });
   
 });
