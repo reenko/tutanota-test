@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "mocha": "",
+    "nyc": "^15.1.0",
     "should": ""
   },
   "scripts": {
@@ -15,7 +16,7 @@
     "two": "node index.js -p ./testFiles/ -c 1 -i 1 -l 3",
     "three": "node index.js -p ./testFiles/ -c 2 -i 0 -l 3",
     "four": "node index.js -p ./testFiles/ -c 2 -i 0.9 -l 3",
-    "test": "mocha -R spec"
+    "test": "nyc mocha -R spec"
   },
   "keywords": [
     "w-shingling",

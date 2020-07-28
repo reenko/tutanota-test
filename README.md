@@ -20,7 +20,7 @@ There are 4 options for cli command
 
 2. Similarity index [0..1], 0.5 by default. What we shoud mark as the same? 1 == full copy
 
-3. Min number of duplicates to mark as a not uniqe, 3 by default
+3. Min number of duplicates to mark as a not unique, 3 by default
 
 4. Length of one shingle in words, 4 by default, min 3
 

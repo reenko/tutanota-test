@@ -2,10 +2,16 @@ const program = require('commander');
 const process = require('process');
 const path = require('path');
 const fs = require('fs');
+const XXHash = require('xxhash'); // https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed
 const WShingling = require('./lib/w_shingling');
 
+const SEED = 10;
+
  const main = async function (dir, index = 0.5, maxDuplicates = 3, shingleLength = 4) {
-  const wShingling = new WShingling(shingleLength);
+  const wShingling = new WShingling({
+    shingleLength,
+    hashFunction: (text) => XXHash.hash(Buffer.from(text), SEED)
+  });
 
   const directoryPath = path.join(dir);
   let files = await new Promise((resolve, reject) => {
@@ -28,7 +34,7 @@ const WShingling = require('./lib/w_shingling');
   console.log('Files to comparison:\t', countOfFiles);
 
   const countOfCombinations = (countOfFiles * countOfFiles - countOfFiles) / 2;
-  console.log('Count of uniqe combinations:\t', countOfCombinations);
+  console.log('Count of unique combinations:\t', countOfCombinations);
 
    if (countOfFiles === 0) {
      return process.exit(0);
@@ -59,10 +65,14 @@ const WShingling = require('./lib/w_shingling');
 program
   .requiredOption('-p, --path <path>', 'Path to files')
   .option('-i, --index <index>', 'Similarity index [0..1], 0.5 by default')
-  .option('-c, --copies <copies>', 'Min number of duplicates to mark as a not uniqe, 3 by default')
+  .option('-c, --copies <copies>', 'Min number of duplicates to mark as a not unique, 3 by default')
   .option('-l, --length <length>', 'Length of one shingle in words, 4 by default, min 3')
   .action(async (options) => {
-    await main(options.path, options.index, options.copies, options.length);
+    const index = options.index && !isNaN(Number(options.index)) ? Number(options.index) : null;
+    const copies = options.copies && !isNaN(Number(options.copies)) ? Number(options.copies) : null;
+    const length = options.length && !isNaN(Number(options.length)) ? Number(options.length) : null;
+
+    await main(options.path, index, copies, length);
   });
 
 program.parse(process.argv);
